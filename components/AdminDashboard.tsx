@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { 
   Users, DollarSign, TrendingUp, Search, ShieldAlert, Crown, Ban,
   Mail, CheckCircle, LayoutDashboard, PieChart, Lock, ArrowLeft,
-  Settings, Link as LinkIcon, Save, KeyRound, Loader2, Megaphone
+  Settings, Link as LinkIcon, Save, KeyRound, Loader2, Megaphone,
+  CreditCard, ExternalLink, RefreshCw
 } from 'lucide-react';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { UserProfile, Transaction } from '../types';
@@ -74,7 +75,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBack }) => {
           const savedLink = localStorage.getItem('feliz_stripe_link');
           setStripeConfig({ 
               paymentLink: savedLink || STRIPE_CHECKOUT_URL,
-              isConnected: !!savedLink
+              isConnected: !!savedLink && savedLink !== ''
           });
 
       } catch (e) {
@@ -101,12 +102,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBack }) => {
   const handleSaveStripeConfig = () => {
       playSound.click();
       if (!stripeConfig.paymentLink.includes('http')) {
-          alert("URL Inválida.");
+          alert("URL Inválida. Certifique-se de copiar o link completo (começando com https://).");
           return;
       }
       localStorage.setItem('feliz_stripe_link', stripeConfig.paymentLink);
       setStripeConfig(prev => ({ ...prev, isConnected: true }));
-      alert("✅ Configuração Salva!");
+      alert("✅ Configuração da Stripe Salva com Sucesso!");
   };
 
   const handleTogglePremium = async (email: string) => {
@@ -279,35 +280,95 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBack }) => {
       {/* 3. FINANCE TAB */}
       {activeTab === 'finance' && (
         <div className="bg-white rounded-3xl shadow-sm p-8 animate-fade-in-up border border-gray-100">
-            <h3 className="font-bold text-lg mb-4 text-gray-800">Configuração Stripe</h3>
-            <div className="mb-6 p-6 bg-gray-50 rounded-2xl">
-                <label className="block text-sm font-bold text-gray-700 mb-2">Link de Pagamento (Payment Link)</label>
-                <div className="flex gap-2">
-                    <input 
-                        className="w-full border border-gray-200 rounded-xl p-3 bg-white focus:border-brand-primary outline-none" 
-                        value={stripeConfig.paymentLink}
-                        onChange={(e) => setStripeConfig({...stripeConfig, paymentLink: e.target.value})}
-                        placeholder="https://buy.stripe.com/..."
-                    />
-                    <button onClick={handleSaveStripeConfig} className="bg-brand-dark text-white px-6 py-2 rounded-xl font-bold hover:bg-black transition flex items-center"><Save size={18} className="mr-2"/> Salvar</button>
+            <div className="flex items-center justify-between mb-8">
+                 <h3 className="font-bold text-2xl text-gray-800 flex items-center">
+                    <div className="bg-[#635BFF] p-2 rounded-lg mr-3 shadow-md">
+                       <CreditCard className="text-white" size={24} />
+                    </div>
+                    Pagamentos & Assinaturas
+                 </h3>
+                 <span className={`px-3 py-1 rounded-full text-xs font-bold flex items-center ${stripeConfig.isConnected ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+                    {stripeConfig.isConnected ? <CheckCircle size={12} className="mr-1"/> : <Ban size={12} className="mr-1"/>}
+                    {stripeConfig.isConnected ? 'Sistema Conectado' : 'Não Configurado'}
+                 </span>
+            </div>
+
+            {/* Configuração Stripe */}
+            <div className="mb-10 bg-gradient-to-br from-slate-50 to-white p-8 rounded-3xl border border-slate-200 shadow-sm relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#635BFF]/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+                
+                <h4 className="font-bold text-[#635BFF] mb-2 flex items-center text-lg">
+                    <LinkIcon size={20} className="mr-2" /> Link de Pagamento Stripe
+                </h4>
+                <p className="text-sm text-gray-500 mb-6 leading-relaxed max-w-2xl">
+                    Para ativar pagamentos reais, crie um "Payment Link" no seu Dashboard da Stripe e cole a URL abaixo.
+                    O aplicativo redirecionará automaticamente os pais para esta página segura.
+                </p>
+                
+                <div className="flex flex-col md:flex-row gap-3 items-stretch">
+                    <div className="flex-1 relative">
+                        <input 
+                            className="w-full border-2 border-gray-200 rounded-xl p-4 pl-4 bg-white focus:border-[#635BFF] focus:ring-4 focus:ring-[#635BFF]/10 outline-none transition-all font-medium text-gray-700 placeholder-gray-300" 
+                            value={stripeConfig.paymentLink}
+                            onChange={(e) => setStripeConfig({...stripeConfig, paymentLink: e.target.value})}
+                            placeholder="https://buy.stripe.com/..."
+                        />
+                    </div>
+                    <button 
+                        onClick={handleSaveStripeConfig} 
+                        className="bg-[#635BFF] hover:bg-[#544DC9] text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-xl active:scale-95 flex items-center justify-center whitespace-nowrap"
+                    >
+                        <Save size={18} className="mr-2"/> Salvar Configuração
+                    </button>
+                </div>
+                
+                <div className="mt-4 flex items-center text-xs text-gray-400 font-medium">
+                     <ExternalLink size={12} className="mr-1" />
+                     <a href="https://dashboard.stripe.com/payment-links" target="_blank" rel="noopener noreferrer" className="hover:text-[#635BFF] transition-colors underline decoration-dotted">
+                        Abrir Stripe Dashboard para criar link
+                     </a>
                 </div>
             </div>
             
-            <h3 className="font-bold text-lg mb-4 border-t pt-6 text-gray-800">Histórico de Transações (Simulado)</h3>
-            <div className="space-y-3">
-                {transactions.map(tx => (
-                    <div key={tx.id} className="flex justify-between items-center p-4 bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition">
-                        <div className="flex items-center">
-                            <div className="bg-green-100 p-2 rounded-full mr-3 text-green-600"><CheckCircle size={16} /></div>
-                            <div>
-                                <p className="font-bold text-sm text-gray-800">{tx.userEmail}</p>
-                                <p className="text-xs text-gray-500">{new Date(tx.date).toLocaleDateString()} • {tx.plan}</p>
+            {/* Histórico de Transações */}
+            <div>
+                <div className="flex justify-between items-end mb-4">
+                    <h3 className="font-bold text-lg text-gray-800">Transações Recentes</h3>
+                    <button onClick={loadData} className="text-[#635BFF] text-sm font-bold flex items-center hover:bg-[#635BFF]/10 px-3 py-1 rounded-lg transition-colors">
+                        <RefreshCw size={14} className="mr-1" /> Atualizar
+                    </button>
+                </div>
+                
+                <div className="space-y-3">
+                    {transactions.map(tx => (
+                        <div key={tx.id} className="flex justify-between items-center p-5 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all group">
+                            <div className="flex items-center">
+                                <div className="bg-green-100 p-3 rounded-full mr-4 text-green-600 group-hover:scale-110 transition-transform">
+                                    <CheckCircle size={20} />
+                                </div>
+                                <div>
+                                    <p className="font-bold text-gray-800 text-base">{tx.userEmail}</p>
+                                    <div className="flex items-center text-xs text-gray-500 mt-1">
+                                        <span className="bg-gray-100 px-2 py-0.5 rounded text-gray-600 font-bold mr-2 uppercase tracking-wide text-[10px]">{tx.plan === 'monthly' ? 'Mensal' : 'Anual'}</span>
+                                        <span>{new Date(tx.date).toLocaleDateString()} às {new Date(tx.date).toLocaleTimeString()}</span>
+                                    </div>
+                                </div>
                             </div>
+                            <span className="font-mono font-bold text-green-600 bg-green-50 px-4 py-2 rounded-xl border border-green-100">
+                                + R$ {tx.amount.toFixed(2)}
+                            </span>
                         </div>
-                        <span className="font-mono font-bold text-green-600 bg-green-50 px-3 py-1 rounded-lg">+ R$ {tx.amount.toFixed(2)}</span>
-                    </div>
-                ))}
-                {transactions.length === 0 && <p className="text-gray-400 text-sm text-center py-4">Nenhuma transação registrada ainda.</p>}
+                    ))}
+                    {transactions.length === 0 && (
+                        <div className="text-center py-12 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
+                            <div className="bg-gray-200 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 text-gray-400">
+                                <DollarSign size={20} />
+                            </div>
+                            <p className="text-gray-500 font-medium">Nenhuma transação registrada ainda.</p>
+                            <p className="text-xs text-gray-400 mt-1">As vendas aparecerão aqui automaticamente.</p>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
       )}

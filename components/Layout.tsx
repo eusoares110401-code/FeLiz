@@ -57,11 +57,8 @@ const Layout: React.FC<LayoutProps> = ({ children, currentView, setView, profile
             color="text-blue-500"
           />
            <NavButton 
-            active={false}
-            onClick={() => {
-                try { playSound.click(); } catch(e) {}
-                alert("🏆 Sistema de Conquistas chegando na próxima atualização!");
-            }} 
+            active={currentView === AppView.ACHIEVEMENTS}
+            onClick={() => setView(AppView.ACHIEVEMENTS)} 
             icon={<Trophy />} 
             label="Conquistas" 
             color="text-yellow-500"

@@ -5,7 +5,8 @@ export enum AppView {
   LESSON = 'LESSON',
   PARENT_DASHBOARD = 'PARENT_DASHBOARD',
   ADMIN_DASHBOARD = 'ADMIN_DASHBOARD',
-  PREMIUM_WALL = 'PREMIUM_WALL'
+  PREMIUM_WALL = 'PREMIUM_WALL',
+  ACHIEVEMENTS = 'ACHIEVEMENTS'
 }
 
 export enum SubjectType {
@@ -37,7 +38,7 @@ export interface UserProfile {
   level: number;
   streak: number;
   unlockedSubjects: SubjectType[];
-  masteredLetters: string[]; // Novidade: Lista de letras aprendidas (ex: ['A', 'C'])
+  masteredLetters: string[]; 
 
   // Subscription Data
   isPremium: boolean;
@@ -77,9 +78,8 @@ export interface Transaction {
 }
 
 export interface KPI {
-  mrr: number; // Monthly Recurring Revenue
-  arr: number; // Annual Recurring Revenue
+  totalRevenue: number;
   activeUsers: number;
-  churnRate: number;
-  conversionRate: number;
+  conversionRate: string;
+  totalUsers: number;
 }
