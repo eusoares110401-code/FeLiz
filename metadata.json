@@ -1,0 +1,7 @@
+{
+  "name": "FeLiz Education",
+  "description": "Plataforma de educação clássica gamificada baseada no Trivium & Quadrivium.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
