@@ -80,7 +80,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                 </div>
             </div>
 
-            <div className="prose prose-blue text-gray-600 leading-relaxed text-lg">
+            <div className="prose prose-emerald text-gray-600 leading-relaxed text-lg">
                 <p>
                     Tudo começou em uma noite comum, observando minha filha, <strong>Liz</strong>, tentando usar um aplicativo "educativo". 
                     Percebi algo que me incomodou: o app não queria ensinar, queria apenas <span className="text-red-500 font-bold">viciá-la</span> com luzes piscantes e recompensas vazias.
@@ -91,7 +91,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                 </p>
             </div>
 
-            <div className="bg-sky-50 p-6 rounded-3xl border border-sky-100 relative overflow-hidden group hover:shadow-md transition-all">
+            <div className="bg-emerald-50 p-6 rounded-3xl border border-emerald-100 relative overflow-hidden group hover:shadow-md transition-all">
                 <div className="absolute top-0 right-0 opacity-10 transform translate-x-10 -translate-y-10 group-hover:rotate-12 transition-transform duration-700">
                     <Sparkles size={150} />
                 </div>
@@ -135,9 +135,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-sky-100 via-white to-sky-50 min-h-screen font-sans text-gray-800 overflow-x-hidden relative selection:bg-brand-primary selection:text-white flex flex-col">
+    <div className="bg-gradient-to-b from-emerald-100 via-white to-emerald-50 min-h-screen font-sans text-gray-800 overflow-x-hidden relative selection:bg-brand-primary selection:text-white flex flex-col">
       
-      <nav className="fixed w-full z-[100] bg-white/80 backdrop-blur-lg border-b border-sky-100 transition-all shadow-sm">
+      <nav className="fixed w-full z-[100] bg-white/80 backdrop-blur-lg border-b border-emerald-100 transition-all shadow-sm">
         <div className="flex justify-between items-center p-4 md:px-12 max-w-7xl mx-auto">
           <div className="flex items-center space-x-1 group cursor-pointer" onClick={handleStartApp}>
              <div className="relative flex items-baseline">
@@ -167,7 +167,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
       <header className="relative pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto flex flex-col md:flex-row items-center overflow-visible z-0">
         
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-            <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-sky-200 rounded-full blur-[100px] opacity-40"></div>
+            <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-emerald-200 rounded-full blur-[100px] opacity-40"></div>
             <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-yellow-200 rounded-full blur-[100px] opacity-40"></div>
         </div>
 
@@ -189,7 +189,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 relative z-30">
             <button 
               onClick={handleStartApp}
-              className="bg-brand-primary text-white text-lg font-bold py-4 px-10 rounded-2xl shadow-[0_8px_0_rgb(14,116,144)] hover:shadow-[0_4px_0_rgb(14,116,144)] hover:translate-y-1 transition-all flex items-center justify-center group w-full sm:w-auto cursor-pointer"
+              className="bg-brand-primary text-white text-lg font-bold py-4 px-10 rounded-2xl shadow-[0_8px_0_rgba(16,185,129,0.8)] hover:shadow-[0_4px_0_rgba(16,185,129,0.8)] hover:translate-y-1 transition-all flex items-center justify-center group w-full sm:w-auto cursor-pointer"
             >
               Começar a Jornada Grátis
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -202,7 +202,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
 
         <div className="md:w-1/2 relative mt-16 md:mt-0 flex justify-center perspective-1000 z-10 pointer-events-none md:pointer-events-auto">
           <div className="relative z-10 w-80 md:w-96 bg-white/90 backdrop-blur-sm rounded-[2.5rem] shadow-2xl border-8 border-white/50 transform rotate-y-12 rotate-3 hover:rotate-0 transition-transform duration-500 overflow-hidden">
-             <div className="bg-gradient-to-br from-sky-50 to-indigo-50 p-6 h-full flex flex-col">
+             <div className="bg-gradient-to-br from-emerald-50 to-teal-50 p-6 h-full flex flex-col">
                 <div className="flex justify-between items-center mb-6">
                    <div className="h-2 w-24 bg-gray-200 rounded-full overflow-hidden"><div className="h-full w-2/3 bg-brand-secondary"></div></div>
                    <div className="bg-brand-primary/10 text-brand-primary p-2 rounded-lg font-bold">👑 PRO</div>
@@ -212,7 +212,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                    <div className="bg-white p-4 rounded-xl shadow-sm text-center w-full">
                       <p className="font-display font-bold text-gray-800 text-lg">Qual é a letra A?</p>
                       <div className="grid grid-cols-2 gap-2 mt-3">
-                         <div className="p-3 border-2 border-brand-primary bg-sky-50 rounded-lg font-bold text-brand-primary">A</div>
+                         <div className="p-3 border-2 border-brand-primary bg-emerald-50 rounded-lg font-bold text-brand-primary">A</div>
                          <div className="p-3 border-2 border-gray-100 rounded-lg text-gray-400">B</div>
                       </div>
                    </div>
@@ -236,7 +236,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                     <button onClick={() => handleClick(() => setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1)))} className="absolute left-4 z-20 p-3 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors hidden md:block cursor-pointer"><ChevronLeft size={24} /></button>
                     <div className="w-full h-full flex items-center justify-center p-8 md:p-12 relative z-10">
                          <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 text-center md:text-left transition-all duration-500 transform animate-fade-in-up key={currentSlide}">
-                            <div className={`${slides[currentSlide].config.color} w-32 h-32 md:w-40 md:h-40 rounded-full flex items-center justify-center shadow-lg shrink-0 border-4 border-white ring-4 ring-sky-50`}>
+                            <div className={`${slides[currentSlide].config.color} w-32 h-32 md:w-40 md:h-40 rounded-full flex items-center justify-center shadow-lg shrink-0 border-4 border-white ring-4 ring-emerald-50`}>
                                 <div className="scale-150 transform">{slides[currentSlide].config.icon}</div>
                             </div>
                             <div className="flex-1">
@@ -246,7 +246,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                                     <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">O que aprendemos:</p>
                                     <div className="flex flex-wrap gap-2 justify-center md:justify-start">
                                         {slides[currentSlide].config.skills.map((skill: string, idx: number) => (
-                                            <span key={idx} className="bg-sky-50 text-sky-800 px-3 py-1 rounded-lg text-sm font-medium border border-sky-100">{skill}</span>
+                                            <span key={idx} className="bg-emerald-50 text-emerald-800 px-3 py-1 rounded-lg text-sm font-medium border border-emerald-100">{skill}</span>
                                         ))}
                                     </div>
                                 </div>
@@ -269,12 +269,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
 
       {/* QUADRIVIUM SECTION */}
       <section id="quadrivium" className="py-24 bg-brand-dark relative overflow-hidden z-0">
-         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-purple-900/30 rounded-full blur-[120px] pointer-events-none -z-10"></div>
-         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-900/30 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-900/30 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-teal-900/30 rounded-full blur-[100px] pointer-events-none -z-10"></div>
 
          <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
             <div className="text-center mb-16">
-                <div className="inline-flex items-center px-4 py-2 bg-white/10 text-purple-300 rounded-full text-xs font-bold mb-4 tracking-wide border border-white/10 backdrop-blur-sm">
+                <div className="inline-flex items-center px-4 py-2 bg-white/10 text-emerald-300 rounded-full text-xs font-bold mb-4 tracking-wide border border-white/10 backdrop-blur-sm">
                     <Microscope size={14} className="mr-2" /> FASE AVANÇADA (7+ ANOS)
                 </div>
                 <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">O Quadrivium: A Ordem do Universo</h2>
@@ -333,8 +333,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                   Criamos a FeLiz porque cansamos de apps que hipnotizam. Nosso objetivo é que você receba relatórios para conversar com seu filho no jantar sobre o que ele aprendeu.
                </p>
                <div className="space-y-6">
-                  <FeatureRow icon={<Shield className="text-green-600" />} title="Segurança Máxima" desc="Zero anúncios. Zero chat com estranhos. Ambiente blindado." />
-                  <FeatureRow icon={<Brain className="text-purple-600" />} title="IA Adaptativa (Astra)" desc="Como um professor particular que conhece o ritmo do seu filho." />
+                  <FeatureRow icon={<Shield className="text-emerald-600" />} title="Segurança Máxima" desc="Zero anúncios. Zero chat com estranhos. Ambiente blindado." />
+                  <FeatureRow icon={<Brain className="text-teal-600" />} title="IA Adaptativa (Astra)" desc="Como um professor particular que conhece o ritmo do seu filho." />
                   <FeatureRow icon={<Heart className="text-rose-600" />} title="Feito com Amor" desc="Cada lição passa pelo crivo de nossa família antes de chegar à sua." />
                </div>
             </div>
@@ -344,7 +344,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
       <div className="bg-brand-primary py-20 text-center px-6 relative z-10">
          <div className="max-w-3xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">Faça parte da nossa família.</h2>
-            <p className="text-sky-100 text-xl mb-10">Crie sua conta gratuita em 30 segundos.</p>
+            <p className="text-emerald-100 text-xl mb-10">Crie sua conta gratuita em 30 segundos.</p>
             <button onClick={handleStartApp} className="bg-white text-brand-primary text-xl font-bold py-5 px-12 rounded-full shadow-2xl hover:scale-105 hover:bg-gray-50 transition-all cursor-pointer">
                Criar Conta Grátis
             </button>

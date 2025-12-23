@@ -158,7 +158,8 @@ const LessonPlayer: React.FC<LessonPlayerProps> = ({ subject, user, onComplete, 
     const mastered = user.masteredLetters || [];
     
     const handleLetterClick = (letter: string) => {
-       playSound.click();
+       // Não tocamos o som de clique aqui para evitar conflito com a fala
+       // playSound.click(); -> Removido para priorizar a fala
        
        const letterData = ALPHABET_DB[letter];
        if(letterData) {
@@ -181,13 +182,14 @@ const LessonPlayer: React.FC<LessonPlayerProps> = ({ subject, user, onComplete, 
 
     return (
         <div className="flex flex-col items-center w-full h-full animate-fade-in-up relative pb-20">
-            <div className="bg-white/80 backdrop-blur p-4 rounded-2xl border border-rose-200 mb-4 text-center w-full shadow-sm">
-                <h3 className="text-lg font-bold text-rose-600 flex items-center justify-center">
-                    <Volume2 className="mr-2 w-5 h-5" /> Toque nas letras para ouvir!
+            <div className="bg-white/80 backdrop-blur p-3 rounded-2xl border border-emerald-200 mb-2 text-center w-full shadow-sm max-w-md">
+                <h3 className="text-base font-bold text-emerald-600 flex items-center justify-center">
+                    <Volume2 className="mr-2 w-4 h-4" /> Toque nas letras para ouvir!
                 </h3>
             </div>
             
-            <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-3 w-full max-h-[70vh] overflow-y-auto p-2">
+            {/* Grid Compacto Ajustado */}
+            <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 gap-2 w-full max-w-3xl overflow-y-auto p-2 pb-24">
                 {letters.map((letter) => {
                     const isMastered = mastered.includes(letter);
                     return (
@@ -196,16 +198,16 @@ const LessonPlayer: React.FC<LessonPlayerProps> = ({ subject, user, onComplete, 
                             onClick={() => handleLetterClick(letter)}
                             className={`
                                 aspect-square rounded-xl shadow-sm border-b-4 flex items-center justify-center relative
-                                text-3xl font-display font-bold transition-all duration-200 cursor-pointer
+                                text-2xl font-display font-bold transition-all duration-200 cursor-pointer
                                 ${isMastered 
-                                    ? 'bg-green-50 border-green-300 text-green-600' 
+                                    ? 'bg-emerald-500 border-emerald-700 text-white hover:bg-emerald-400' // Estado Completo: Verde Forte
                                     : 'bg-white border-gray-200 text-gray-800 hover:bg-gray-50'
                                 }
                                 active:border-b-0 active:translate-y-1
                             `}
                         >
                             {letter}
-                            {isMastered && <div className="absolute top-1 right-1"><Star size={10} className="text-yellow-400 fill-current" /></div>}
+                            {isMastered && <div className="absolute top-1 right-1"><Star size={10} className="text-yellow-300 fill-current" /></div>}
                         </button>
                     );
                 })}
@@ -215,18 +217,18 @@ const LessonPlayer: React.FC<LessonPlayerProps> = ({ subject, user, onComplete, 
             {focusedLetter && letterData && (
                 <div className="absolute inset-0 z-50 flex items-center justify-center p-4">
                     <div className="absolute inset-0 bg-brand-dark/60 backdrop-blur-sm" onClick={() => setFocusedLetter(null)}></div>
-                    <div className="bg-white rounded-[2rem] shadow-2xl p-6 w-full max-w-sm relative z-50 animate-bounce-sm border-4 border-rose-100 flex flex-col items-center">
-                        <button onClick={() => { playSound.click(); setFocusedLetter(null); }} className="absolute top-4 right-4 bg-gray-100 p-2 rounded-full text-gray-500">
+                    <div className="bg-white rounded-[2rem] shadow-2xl p-6 w-full max-w-sm relative z-50 animate-bounce-sm border-4 border-emerald-100 flex flex-col items-center">
+                        <button onClick={() => { playSound.click(); setFocusedLetter(null); }} className="absolute top-4 right-4 bg-gray-100 p-2 rounded-full text-gray-500 hover:bg-gray-200 cursor-pointer">
                             <X size={24} />
                         </button>
-                        <div className="text-9xl font-display font-bold mb-2 text-brand-primary">{focusedLetter}</div>
-                        <div className="text-6xl mb-4">{letterData.emoji}</div>
+                        <div className="text-8xl font-display font-bold mb-2 text-emerald-500">{focusedLetter}</div>
+                        <div className="text-6xl mb-4 animate-float">{letterData.emoji}</div>
                         <h3 className="text-3xl font-bold text-gray-800 mb-6 font-display">{letterData.word}</h3>
                         <div className="space-y-3 w-full">
-                            <button onClick={() => { playSound.click(); playSound.speak(letterData.phoneticText, `letter_${letterData.letter}`); }} className="w-full bg-yellow-400 text-white font-bold py-3 rounded-xl shadow-md flex items-center justify-center">
+                            <button onClick={() => { playSound.speak(letterData.phoneticText, `letter_${letterData.letter}`); }} className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 rounded-xl shadow-md flex items-center justify-center cursor-pointer transition-colors border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1">
                                 <Volume2 className="mr-2" /> Ouvir
                             </button>
-                            <button onClick={playLetterGame} className="w-full bg-brand-primary text-white font-bold py-3 rounded-xl shadow-md flex items-center justify-center">
+                            <button onClick={playLetterGame} className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-md flex items-center justify-center cursor-pointer transition-colors border-b-4 border-emerald-700 active:border-b-0 active:translate-y-1">
                                 <Gamepad2 className="mr-2" /> Jogar
                             </button>
                         </div>
@@ -255,7 +257,7 @@ const LessonPlayer: React.FC<LessonPlayerProps> = ({ subject, user, onComplete, 
                         <p className="text-sm font-bold text-gray-500 uppercase">Recompensa</p>
                         <p className="text-4xl font-display font-bold text-brand-primary">+{lesson?.xpReward} XP</p>
                     </div>
-                    <button onClick={handleFinishLesson} className="w-full bg-green-500 text-white font-bold py-4 rounded-2xl shadow-lg hover:bg-green-600 transition-all flex items-center justify-center">
+                    <button onClick={handleFinishLesson} className="w-full bg-green-500 text-white font-bold py-4 rounded-2xl shadow-lg hover:bg-green-600 transition-all flex items-center justify-center cursor-pointer">
                         Continuar <ArrowLeft className="ml-2 rotate-180" />
                     </button>
               </div>
@@ -270,7 +272,7 @@ const LessonPlayer: React.FC<LessonPlayerProps> = ({ subject, user, onComplete, 
               <AlertTriangle className="w-16 h-16 text-red-400" />
               <h2 className="text-2xl font-bold text-gray-800">Ops!</h2>
               <p className="text-gray-600">Ocorreu um erro ao carregar a lição.</p>
-              <button onClick={() => isLiteracy ? setViewMode('board') : onExit()} className="bg-brand-primary text-white px-8 py-3 rounded-xl font-bold shadow-lg">Voltar</button>
+              <button onClick={() => isLiteracy ? setViewMode('board') : onExit()} className="bg-brand-primary text-white px-8 py-3 rounded-xl font-bold shadow-lg cursor-pointer">Voltar</button>
           </div>
       );
   }
@@ -298,16 +300,16 @@ const LessonPlayer: React.FC<LessonPlayerProps> = ({ subject, user, onComplete, 
   const isVisualOptions = isLiteracy || (currentQuestion.options && currentQuestion.options.every(opt => opt.length <= 2));
 
   return (
-    <div className={`flex flex-col h-full w-full max-w-4xl mx-auto relative rounded-3xl p-4 shadow-sm border border-white ${isLiteracy ? 'bg-gradient-to-b from-rose-50 to-orange-50' : 'bg-slate-50/50'}`}>
+    <div className={`flex flex-col h-full w-full max-w-4xl mx-auto relative rounded-3xl p-4 shadow-sm border border-white ${isLiteracy ? 'bg-gradient-to-b from-emerald-50 to-teal-50' : 'bg-slate-50/50'}`}>
       
       {/* HEADER */}
       <div className="flex flex-col space-y-4 mb-4 z-10">
           <div className="flex items-center justify-between gap-4">
-            <button onClick={() => isLiteracy ? setViewMode('board') : onExit()} className="p-2 -ml-2 rounded-lg hover:bg-gray-100 text-gray-500">
+            <button onClick={() => isLiteracy ? setViewMode('board') : onExit()} className="p-2 -ml-2 rounded-lg hover:bg-gray-100 text-gray-500 cursor-pointer">
               <ArrowLeft className="w-6 h-6" />
             </button>
             <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden border border-white shadow-inner">
-                <div className={`h-full transition-all duration-500 ease-out ${isLiteracy ? 'bg-rose-500' : 'bg-brand-secondary'}`} style={{ width: `${progress}%` }} />
+                <div className={`h-full transition-all duration-500 ease-out ${isLiteracy ? 'bg-emerald-500' : 'bg-brand-secondary'}`} style={{ width: `${progress}%` }} />
             </div>
           </div>
       </div>
@@ -315,7 +317,7 @@ const LessonPlayer: React.FC<LessonPlayerProps> = ({ subject, user, onComplete, 
       {/* QUESTION */}
       <div className="flex-1 flex flex-col items-center w-full overflow-y-auto pb-24">
           <div className="w-full flex flex-col items-center max-w-2xl animate-fade-in-up">
-            <h2 className={`font-display font-bold text-gray-800 mb-8 text-center px-2 ${isLiteracy ? 'text-2xl md:text-4xl text-rose-600' : 'text-xl md:text-3xl'}`}>
+            <h2 className={`font-display font-bold text-gray-800 mb-8 text-center px-2 ${isLiteracy ? 'text-2xl md:text-4xl text-emerald-600' : 'text-xl md:text-3xl'}`}>
                 {currentQuestion.text}
             </h2>
 
@@ -326,7 +328,7 @@ const LessonPlayer: React.FC<LessonPlayerProps> = ({ subject, user, onComplete, 
                         disabled={isChecking}
                         onClick={() => { playSound.click(); setSelectedOption(option); }}
                         className={`
-                            rounded-2xl border-b-4 font-bold transition-all w-full relative
+                            rounded-2xl border-b-4 font-bold transition-all w-full relative cursor-pointer
                             ${isVisualOptions ? 'aspect-square text-5xl flex items-center justify-center' : 'p-4 text-lg text-center'}
                             ${selectedOption === option ? 'bg-sky-100 border-sky-500 text-sky-700 -translate-y-1' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'}
                             ${isChecking && option === currentQuestion.correctAnswer ? '!bg-green-100 !border-green-500 !text-green-700' : ''}
@@ -353,11 +355,11 @@ const LessonPlayer: React.FC<LessonPlayerProps> = ({ subject, user, onComplete, 
                     </div>
                 )}
                 {!feedback ? (
-                    <button disabled={!selectedOption} onClick={handleCheck} className={`w-full py-4 rounded-2xl font-bold text-xl shadow-lg transition-all border-b-4 ${selectedOption ? 'bg-brand-secondary border-yellow-600 text-white hover:bg-yellow-500' : 'bg-gray-200 border-gray-300 text-gray-400 cursor-not-allowed'}`}>
+                    <button disabled={!selectedOption} onClick={handleCheck} className={`w-full py-4 rounded-2xl font-bold text-xl shadow-lg transition-all border-b-4 ${selectedOption ? 'bg-brand-secondary border-yellow-600 text-white hover:bg-yellow-500 cursor-pointer' : 'bg-gray-200 border-gray-300 text-gray-400 cursor-not-allowed'}`}>
                         VERIFICAR
                     </button>
                 ) : (
-                    <button onClick={handleNext} className={`w-full py-4 rounded-2xl font-bold text-xl shadow-lg text-white transition-all border-b-4 ${feedback === 'correct' ? 'bg-green-500 border-green-700' : 'bg-red-500 border-red-700'}`}>
+                    <button onClick={handleNext} className={`w-full py-4 rounded-2xl font-bold text-xl shadow-lg text-white transition-all border-b-4 cursor-pointer ${feedback === 'correct' ? 'bg-green-500 border-green-700' : 'bg-red-500 border-red-700'}`}>
                         CONTINUAR <ArrowLeft className="inline ml-2 rotate-180" />
                     </button>
                 )}

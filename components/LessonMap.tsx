@@ -42,13 +42,13 @@ const LessonMap: React.FC<LessonMapProps> = ({ onSelectLesson, user, onPremiumCl
   };
 
   return (
-    <div className="flex flex-col items-center w-full min-h-screen relative overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-200 via-sky-50 to-green-50 pb-32">
+    <div className="flex flex-col items-center w-full min-h-screen relative overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-200 via-emerald-50 to-green-50 pb-32">
       <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute bottom-20 left-10 text-green-200 opacity-60"><Trees size={120} /></div>
-        <div className="absolute top-40 right-10 text-green-200 opacity-60"><Trees size={100} /></div>
+        <div className="absolute bottom-20 left-10 text-emerald-200 opacity-60"><Trees size={120} /></div>
+        <div className="absolute top-40 right-10 text-emerald-200 opacity-60"><Trees size={100} /></div>
         <Cloud className="absolute top-20 left-10 text-white w-24 h-24 opacity-80 animate-float" />
         <Cloud className="absolute top-40 right-20 text-white w-16 h-16 opacity-60 animate-float" style={{ animationDelay: '2s' }} />
-        <Bird className="absolute top-32 left-1/3 text-sky-400 w-8 h-8 animate-bounce" />
+        <Bird className="absolute top-32 left-1/3 text-emerald-500 w-8 h-8 animate-bounce" />
       </div>
 
       <div className="relative z-20 w-full max-w-xl mx-auto pt-8 px-6 mb-8 flex justify-between items-center animate-fade-in-up">
@@ -69,7 +69,7 @@ const LessonMap: React.FC<LessonMapProps> = ({ onSelectLesson, user, onPremiumCl
 
       <div className="relative z-10 w-full max-w-md mx-auto flex-1 flex flex-col-reverse items-center justify-end py-10" style={{ minHeight: '800px' }}>
          <svg className="absolute top-0 left-0 w-full h-full pointer-events-none z-0" style={{ opacity: 0.4 }}>
-            <path d="M 50% 90% C 90% 80%, 10% 70%, 50% 50% S 90% 20%, 50% 5%" stroke="#cbd5e1" strokeWidth="8" strokeDasharray="15, 15" fill="none" strokeLinecap="round"/>
+            <path d="M 50% 90% C 90% 80%, 10% 70%, 50% 50% S 90% 20%, 50% 5%" stroke="#6ee7b7" strokeWidth="8" strokeDasharray="15, 15" fill="none" strokeLinecap="round"/>
          </svg>
 
          {levels.map((level, index) => {
@@ -106,7 +106,7 @@ const LessonMap: React.FC<LessonMapProps> = ({ onSelectLesson, user, onPremiumCl
                </div>
             );
          })}
-         <div className="mt-8 text-center opacity-50"><div className="text-xs font-bold uppercase tracking-widest text-green-700 bg-white/40 px-3 py-1 rounded-full">Início</div></div>
+         <div className="mt-8 text-center opacity-50"><div className="text-xs font-bold uppercase tracking-widest text-emerald-700 bg-white/40 px-3 py-1 rounded-full">Início</div></div>
       </div>
 
       <div className="fixed bottom-24 md:bottom-8 right-6 z-50">

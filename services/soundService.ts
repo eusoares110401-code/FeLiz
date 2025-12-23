@@ -82,7 +82,7 @@ const playFromCache = (key: string, volume = 1.0): boolean => {
 const getBestVoice = (): SpeechSynthesisVoice | null => {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) return null;
     const voices = window.speechSynthesis.getVoices();
-    if (voices.length === 0) return null;
+    if (!voices || voices.length === 0) return null;
 
     // Preferência: Google PT-BR (Alta qualidade) -> Microsoft/Apple PT-BR -> Qualquer PT
     let best = voices.find(v => v.lang === 'pt-BR' && v.name.includes('Google'));
@@ -243,7 +243,7 @@ export const playSound = {
         
         // Configurações para rapidez
         utterance.lang = 'pt-BR'; 
-        utterance.rate = 1.1; // Ligeiramente mais rápido para parecer mais responsivo
+        utterance.rate = 1.0; // Velocidade normal para ser mais claro
         utterance.pitch = 1.0; 
         utterance.volume = 1.0;
         
@@ -257,8 +257,15 @@ export const playSound = {
         utterance.onend = () => {
             currentUtterance = null; // Libera memória após terminar
         };
+        
+        utterance.onerror = (e) => {
+            console.error("Erro na síntese de voz", e);
+        }
 
-        window.speechSynthesis.speak(utterance);
+        // Delay mínimo para garantir que o cancelamento anterior foi processado
+        setTimeout(() => {
+             window.speechSynthesis.speak(utterance);
+        }, 10);
     }),
 
     // Garante que o sistema está acordado
